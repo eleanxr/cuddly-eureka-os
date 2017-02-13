@@ -41,7 +41,7 @@ print_string:
 .endfunc
 
 # Program Data
-loadmsg: .asciz "Loading OS...rn"
+loadmsg: .asciz "Loading OS...\r\n"
 
 # Magic string to make this a bootable segment. Pad what remains of 510 bytes
 # with zeroes and place the magic bytes 0xAA55 at the end of the segment.

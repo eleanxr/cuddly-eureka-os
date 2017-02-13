@@ -1,23 +1,17 @@
-AS=nasm
+AS=as
 CC=gcc
 LD=ld
 
-disk.img: os.bin
+disk.img: boot.bin
 	qemu-img create disk.img 1440k
-	dd status=noxfer conv=notrunc if=os.bin of=disk.img
+	dd status=noxfer conv=notrunc if=boot.bin of=disk.img
 
-os.bin: os.asm
-	$(AS) -f bin -o os.bin os.asm
+boot.o: boot.s
+	$(AS) -o boot.o boot.s
 
-os_gnu.o: os_gnu.s
-	as -o os_gnu.o os_gnu.s
-
-os_gnu.bin: os_gnu.o
-	ld os_gnu.o -o os_gnu.bin --oformat=binary -Ttext 0x7c00
-
-disk_gnu.img: os_gnu.bin
-	qemu-img create disk_gnu.img 1440k
-	dd status=noxfer conv=notrunc if=os_gnu.bin of=disk_gnu.img
+boot.bin: boot.o
+	$(LD) -o boot.out boot.o -Ttext 0x7c00
+	objcopy -O binary -j .text boot.out boot.bin
 
 clean:
-	rm disk.img os.bin
+	rm -f *.img *.bin *.o
