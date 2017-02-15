@@ -1,6 +1,4 @@
 .code16
-.intel_syntax noprefix
-
 .text
 .org 0x0
 
@@ -8,38 +6,37 @@ LOAD_SEGMENT = 0x1000
 
 .global main
 main:
-  jmp short start
+  jmp start
   nop
 
 start:
   cli # Clear interrupts
-  mov ax, cs
-  mov ds, ax
-  mov es, ax
-  mov ss, ax
-  mov sp, 0x7c00 # Stack grows down from 0x7c00
+  movw %cs, %ax
+  movw %ax, %ds
+  movw %ax, %es
+  movw %ax, %ss
+  movw $0x7c00, %sp # Stack grows down from 0x7c00
   sti # Enable interrupts
 
   # Write startup message.
-  lea si, loadmsg
+  leaw loadmsg, %si
   call print_string
 
   # Infinite loop
-  jmp $
+  infinite_loop:
+  jmp infinite_loop
 
 # Output the string residing in SI to the screen using the BIOS
-.func print_string
 print_string:
-  mov ah, 0x0e
+  movb $0x0e, %ah
   .repeat:
     lodsb
-    cmp al, 0
+    cmp $0x0, %al
     je .done
-    int 0x10
+    int $0x10
     jmp .repeat
   .done:
     ret
-.endfunc
 
 # Program Data
 loadmsg: .asciz "Loading OS...\r\n"
