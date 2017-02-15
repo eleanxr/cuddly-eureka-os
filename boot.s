@@ -23,8 +23,7 @@ start:
   call print_string
 
   # Infinite loop
-  infinite_loop:
-  jmp infinite_loop
+  jmp .
 
 # Output the string residing in SI to the screen using the BIOS
 print_string:
@@ -44,4 +43,4 @@ loadmsg: .asciz "Loading OS...\r\n"
 # Magic string to make this a bootable segment. Pad what remains of 510 bytes
 # with zeroes and place the magic bytes 0xAA55 at the end of the segment.
 .fill (510-(.-main)), 1, 0
-boot_magic: .int 0xAA55
+boot_magic: .short 0xAA55
