@@ -1,5 +1,6 @@
 .code16
 .intel_syntax noprefix
+
 .text
 .org 0x0
 
