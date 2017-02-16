@@ -1,4 +1,5 @@
 AS=as
+CPP=cpp
 CC=gcc
 LD=ld
 
@@ -7,7 +8,7 @@ disk.img: boot.bin
 	dd status=noxfer conv=notrunc if=boot.bin of=disk.img
 
 boot.o: boot.s
-	$(AS) -o boot.o boot.s
+	$(CPP) boot.s | $(AS) -o boot.o
 
 boot.out: boot.o
 	$(LD) -o boot.out boot.o -Ttext 0x7c00

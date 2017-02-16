@@ -2,6 +2,8 @@
 .text
 .org 0x0
 
+#define MSG(x) leaw x, %si; call print_string
+
 LOAD_SEGMENT = 0x1000
 
 .global main
@@ -19,8 +21,7 @@ start:
   sti # Enable interrupts
 
   # Write startup message.
-  leaw loadmsg, %si
-  call print_string
+  MSG(loadmsg)
 
   # Infinite loop
   jmp .
@@ -38,7 +39,7 @@ print_string:
     ret
 
 # Program Data
-loadmsg: .asciz "Loading OS...\r\n"
+loadmsg: .asciz "Starting up EmmaOS...\r\n"
 
 # Magic string to make this a bootable segment. Pad what remains of 510 bytes
 # with zeroes and place the magic bytes 0xAA55 at the end of the segment.
