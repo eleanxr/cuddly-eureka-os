@@ -1,6 +1,11 @@
 
 typedef unsigned int uint32_t;
 
+/*
+ * On RPI, the peripheral base address is  2000 0000
+ * On RPI2, the peripheral base address is 3f00 0000
+ */
+
 /* IRQ Enable 2 Address responsible for IRQ sources 63:32 */
 volatile unsigned int * const IRQ_ENABLE_2 = (unsigned int *)0x3f00B214;
 
@@ -8,10 +13,15 @@ volatile unsigned int * const IRQ_ENABLE_2 = (unsigned int *)0x3f00B214;
 volatile unsigned int * const UART0_ADDRESS = (unsigned int *)0x3f201000;
 
 /* GPFSEL0 Register to enable GPIO14 as alternate function 0 */
+/* According to the BC2835 peripherals, the PL011 UART0 interface is available
+ * as alternate function 0 on GPIO pin 14 for transmission and 15 for
+ * receiving. */
 volatile unsigned int * const GPFSEL1 = (unsigned int *)0x3f200004;
 volatile unsigned int * const GPPUD = (unsigned int *)0x3f200094;
 volatile unsigned int * const GPPUDCLK0 = (unsigned int *)0x3f200098;
 
+/* Define the UART0 offsets here manually, as the structure has some alignment
+ * issues that I need to solve. */
 #define DR 0x0
 #define CR 0x30
 #define ICR 0x44
@@ -91,5 +101,5 @@ void print_uart0(const char * s) {
 
 void c_main() {
   init_uart0();
-  print_uart0("We made it here.");
+  print_uart0("Serial output is up and running.\n");
 }
