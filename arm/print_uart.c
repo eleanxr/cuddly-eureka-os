@@ -99,7 +99,15 @@ void print_uart0(const char * s) {
   }
 }
 
+void wait(int cycles) {
+  for (int i = 0; i < cycles; i++);
+}
+
 void c_main() {
   init_uart0();
-  print_uart0("Serial output is up and running.\n");
+
+  while (1) {
+    print_uart0("Serial output is up and running.\n");
+    wait(3000000);
+  }
 }
