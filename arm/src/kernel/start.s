@@ -15,5 +15,5 @@ _start:
 
 _reset:
   ldr sp, =0x8000
-  bl c_main
+  bl kernel_main
   b .

@@ -2,11 +2,14 @@
 project( kernel )
 
 set( ${PROJECT_NAME}_HEADERS
+  ${PROJECT_TOP_INCLUDE_DIR}/rpi/RPIPeripheral.hpp
 )
 
 set( ${PROJECT_NAME}_SOURCES
+  # This must come first.
+  # FIXME: deal with this in a linker script.
   start.s
-  print_uart.c
+  kernel_main.cpp
 )
 
 add_executable( "${PROJECT_NAME}"

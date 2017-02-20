@@ -21,3 +21,8 @@ set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS}" CACHE STRING "C Compiler Flags" )
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" CACHE STRING "C++ Compiler Flags" )
 set( CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS}" CACHE STRING "Assembler flags" )
 set( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}" CACHE STRING "Linker Flags" )
+
+add_definitions(
+  # The QEMU system emulates the hardware on the Raspberry Pi 2.
+  -DRPI_TWO
+)

@@ -1,24 +1,21 @@
 
-typedef unsigned int uint32_t;
+#include <rpi/Peripheral.hpp>
 
-/*
- * On RPI, the peripheral base address is  2000 0000
- * On RPI2, the peripheral base address is 3f00 0000
- */
+#include <cstddef>
 
 /* IRQ Enable 2 Address responsible for IRQ sources 63:32 */
-volatile unsigned int * const IRQ_ENABLE_2 = (unsigned int *)0x3f00B214;
+volatile unsigned int * const IRQ_ENABLE_2 = (unsigned int *)RPI_PERIPHERAL(0x00B214);
 
 /* UART0 (PL011) base address.  */
-volatile unsigned int * const UART0_ADDRESS = (unsigned int *)0x3f201000;
+volatile unsigned int * const UART0_ADDRESS = (unsigned int *)RPI_PERIPHERAL(0x201000);
 
 /* GPFSEL0 Register to enable GPIO14 as alternate function 0 */
 /* According to the BC2835 peripherals, the PL011 UART0 interface is available
  * as alternate function 0 on GPIO pin 14 for transmission and 15 for
  * receiving. */
-volatile unsigned int * const GPFSEL1 = (unsigned int *)0x3f200004;
-volatile unsigned int * const GPPUD = (unsigned int *)0x3f200094;
-volatile unsigned int * const GPPUDCLK0 = (unsigned int *)0x3f200098;
+volatile unsigned int * const GPFSEL1 = (unsigned int *)RPI_PERIPHERAL(0x200004);
+volatile unsigned int * const GPPUD = (unsigned int *)RPI_PERIPHERAL(0x200094);
+volatile unsigned int * const GPPUDCLK0 = (unsigned int *)RPI_PERIPHERAL(0x200098);
 
 /* Define the UART0 offsets here manually, as the structure has some alignment
  * issues that I need to solve. */
@@ -103,11 +100,11 @@ void wait(int cycles) {
   for (int i = 0; i < cycles; i++);
 }
 
-void c_main() {
+extern "C" void kernel_main() {
+  
   init_uart0();
+  print_uart0("Serial output is up and running.\n");
 
-  while (1) {
-    print_uart0("Serial output is up and running.\n");
-    wait(3000000);
-  }
+  // Never exit.
+  while (1);
 }
