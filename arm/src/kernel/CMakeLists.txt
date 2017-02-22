@@ -2,7 +2,6 @@
 project( kernel )
 
 set( ${PROJECT_NAME}_HEADERS
-  ${PROJECT_TOP_INCLUDE_DIR}/rpi/RPIPeripheral.hpp
 )
 
 set( ${PROJECT_NAME}_SOURCES
@@ -15,6 +14,11 @@ set( ${PROJECT_NAME}_SOURCES
 add_executable( "${PROJECT_NAME}"
   ${${PROJECT_NAME}_SOURCES}
   ${${PROJECT_NAME}_HEADERS}
+)
+
+target_link_libraries( ${PROJECT_NAME}
+  kifx
+  rpi
 )
 
 add_custom_command(
