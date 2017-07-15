@@ -1,42 +1,22 @@
 .code16
-.text
-.org 0x0
-
-#define MSG(x) leaw x, %si; call print_string
-
-LOAD_SEGMENT = 0x1000
-
-.global main
-main:
-  jmp start
-  nop
+BITS 16
 
 start:
-  cli # Clear interrupts
-  movw %cs, %ax
-  movw %ax, %ds
-  movw %ax, %es
-  movw %ax, %ss
-  movw $0x7c00, %sp # Stack grows down from 0x7c00
-  sti # Enable interrupts
+  mov ax, 07C0h
 
-  # Write startup message.
-  MSG(loadmsg)
-
-  # Infinite loop
-  jmp .
 
 # Output the string residing in SI to the screen using the BIOS
-print_string:
-  movb $0x0e, %ah
+.func print_string:
+  mov ah, 0x0e
   .repeat:
     lodsb
-    cmp $0x0, %al
+    cmp al, 0
     je .done
-    int $0x10
+    int 0x10
     jmp .repeat
   .done:
     ret
+.endfunc
 
 # Program Data
 loadmsg: .asciz "Starting up EmmaOS...\r\n"

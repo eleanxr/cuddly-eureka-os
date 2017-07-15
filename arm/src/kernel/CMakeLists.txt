@@ -2,7 +2,7 @@
 project( kernel )
 
 set( ${PROJECT_NAME}_HEADERS
-  ${PROJECT_TOP_INCLUDE_DIR}/rpi/RPIPeripheral.hpp
+  ${PROJECT_TOP_INCLUDE_DIR}/rpi/Peripheral.hpp
 )
 
 set( ${PROJECT_NAME}_SOURCES
