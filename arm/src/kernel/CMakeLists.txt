@@ -9,6 +9,8 @@ set( ${PROJECT_NAME}_SOURCES
   # FIXME: deal with this in a linker script.
   start.s
   kernel_main.cpp
+  sys.cpp
+  sys_asm.s
 )
 
 add_executable( "${PROJECT_NAME}"
