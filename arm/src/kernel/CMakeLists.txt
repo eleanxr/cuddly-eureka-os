@@ -13,6 +13,9 @@ set( ${PROJECT_NAME}_SOURCES
   sys_asm.s
 )
 
+set( CMAKE_EXE_LINKER_FLAGS
+  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-T,${CMAKE_CURRENT_SOURCE_DIR}/ld_simple.x" )
+
 add_executable( "${PROJECT_NAME}"
   ${${PROJECT_NAME}_SOURCES}
   ${${PROJECT_NAME}_HEADERS}
