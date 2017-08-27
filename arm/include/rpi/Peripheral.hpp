@@ -1,3 +1,5 @@
+#ifndef _rpi_Peripheral_hpp
+#define _rpi_Peripheral_hpp
 
 /*
  * On RPI, the peripheral base address is  2000 0000
@@ -12,4 +14,6 @@
 #endif
 
 #define RPI_PERIPHERAL(x) (RPI_PERIPHERAL_BASE + x)
+
+#endif // _rpi_Peripheral_hpp
 
