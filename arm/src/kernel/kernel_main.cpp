@@ -3,7 +3,7 @@
 
 #include <rpi/Uart0SerialDevice.hpp>
 
-#include <iostream>
+// #include <iostream>
 
 #include <cstdio>
 
@@ -23,8 +23,8 @@ extern "C" void kernel_main() {
   kifx::writeString(*sSerialDevice, "Direct serial output.\n");
   printf("C stdio output.\n");
 
-  std::ios_base::Init init;
-  std::cout << "std::cout output." << std::endl;
+  // std::ios_base::Init init;
+  // std::cout << "std::cout output." << std::endl;
   // Never exit.
   while (1);
 }

@@ -8,13 +8,15 @@ set( ${PROJECT_NAME}_SOURCES
   # This must come first.
   # FIXME: deal with this in a linker script.
   start.s
+  cstartup.c
   kernel_main.cpp
+  interrupt.c
   sys.cpp
   sys_asm.s
 )
 
-set( CMAKE_EXE_LINKER_FLAGS
-  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-T,${CMAKE_CURRENT_SOURCE_DIR}/ld_simple.x" )
+# set( CMAKE_EXE_LINKER_FLAGS
+#  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-T,${CMAKE_CURRENT_SOURCE_DIR}/ld_simple.x" )
 
 add_executable( "${PROJECT_NAME}"
   ${${PROJECT_NAME}_SOURCES}
