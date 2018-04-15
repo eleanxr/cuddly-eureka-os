@@ -18,3 +18,5 @@ _reset:
   bl kernel_main
   b .
 
+_hang:
+  b hang

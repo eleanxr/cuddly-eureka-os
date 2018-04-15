@@ -14,5 +14,6 @@ SECTIONS
   . = 0x80000000;
   __exidx_start = .;
   __exidx_end = .;
+  __dso_handle = .;
   _end = .;
 }

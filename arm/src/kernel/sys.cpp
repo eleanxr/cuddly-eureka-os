@@ -4,8 +4,13 @@
 #undef errorno
 extern int errno;
 
+#include <kifx/SerialDevice.hpp>
+#include <rpi/Uart0SerialDevice.hpp>
+
 // Required for c++ programs to link with the GNU linker.
 extern "C" {
+
+kifx::SerialDevice * sSerialDevice = 0;
 
 // _exit
 void _exit() {
@@ -45,13 +50,17 @@ int _write(int file, char *ptr, int len) {
   int todo;
 
   for (todo = 0; todo < len; todo++) {
-    // outbyte( *ptr++ );
+    sSerialDevice->writeCharacter( ptr[todo] );
   }
   return len;
 }
 
 // _close
 int _close(int file) {
+  return -1;
+}
+
+int _open(const char * name, int flags, int mode) {
   return -1;
 }
 
