@@ -4,10 +4,12 @@ project( kernel )
 set( ${PROJECT_NAME}_HEADERS
 )
 
+set( BOOT_ASSEMBLY arm/start.s )
+
 set( ${PROJECT_NAME}_SOURCES
   # This must come first.
   # FIXME: deal with this in a linker script.
-  start.s
+  "${BOOT_ASSEMBLY}"
   cstartup.c
   kernel_main.cpp
   interrupt.c

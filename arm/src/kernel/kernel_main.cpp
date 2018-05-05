@@ -22,6 +22,7 @@ extern "C" void kernel_main() {
   sSerialDevice->init();
   kifx::writeString(*sSerialDevice, "Direct serial output.\n");
   printf("C stdio output.\n");
+  printf("The answer is %d.", 42);
 
   // std::ios_base::Init init;
   // std::cout << "std::cout output." << std::endl;
