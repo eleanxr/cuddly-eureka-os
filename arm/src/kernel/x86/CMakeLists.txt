@@ -1,11 +1,11 @@
 cmake_minimum_required( VERSION 3.8 )
 
-project( x86_64_Start ASM_NASM )
+project( x86_64_Start C ASM_NASM )
 
-set( CMAKE_EXE_LINKER_FLAGS "-T ${CMAKE_CURRENT_SOURCE_DIR}/link.ld -melf_i386" )
+set( CMAKE_EXE_LINKER_FLAGS "-T ${CMAKE_CURRENT_SOURCE_DIR}/link.ld -felf_i386" )
 
-set( CMAKE_ASM_NASM_LINK_EXECUTABLE "ld <FLAGS> <CMAKE_ASM_NASM_LINK_FLAGS> <LINK_FLAGS> <OBJECTS>  -o <TARGET> <LINK_LIBRARIES>" )
-add_executable( kernel.elf start.asm )
+set( CMAKE_C_LINK_EXECUTABLE "ld <LINK_FLAGS> <OBJECTS>  -o <TARGET> <LINK_LIBRARIES>" )
+add_executable( kernel.elf start.asm dummy.c )
 
 set( ISO_STAGE_PATH "${CMAKE_CURRENT_BINARY_DIR}/iso/boot" )
 add_custom_command(
